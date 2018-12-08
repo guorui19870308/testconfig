@@ -1,78 +1,21 @@
 my-config:
   appName: my-app
-# ===================================================================
-# Spring Boot configuration for the "dev" profile.
-#
-# This configuration overrides the application.yml file.
-#
-# More information on profiles: http://www.jhipster.tech/profiles/
-# More information on configuration properties: http://www.jhipster.tech/common-application-properties/
-# ===================================================================
-
-# ===================================================================
-# Standard Spring Boot properties.
-# Full reference is available at:
-# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-# ===================================================================
-
+logging:
+    level:
+        ROOT: INFO
+        cn.ctodb.uaa: INFO
+        io.github.jhipster: INFO
+    logback:
+        logdir: /opt/log/dev
+        appname: uaa
 eureka:
+    instance:
+        prefer-ip-address: true
     client:
-        enabled: true
-        healthcheck:
-            enabled: true
-        fetch-registry: true
-        register-with-eureka: true
-        instance-info-replication-interval-seconds: 10
-        registry-fetch-interval-seconds: 10
         service-url:
             defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
-    instance:
-        appname: my-client
-        instanceId: my-client:${spring.application.instance-id:${random.value}}
-        lease-renewal-interval-in-seconds: 5
-        lease-expiration-duration-in-seconds: 10
-        status-page-url-path: ${management.context-path}/info
-        health-check-url-path: ${management.context-path}/health
-        metadata-map:
-            zone: primary # This is needed for the load balancer
-            profile: ${spring.profiles.active}
-            version: ${info.project.version}
-        prefer-ip-address: true
-
-
-ribbon:
-    eureka:
-        enabled: true
-management:
-    security:
-        roles: ADMIN
-    context-path: /management
-    info:
-        git:
-            mode: full
-    health:
-        mail:
-            enabled: false # When using the MailService, configure an SMTP server and set this to true
 
 spring:
-    application:
-        name: my-client
-    jackson:
-        serialization.write_dates_as_timestamps: false
-    jpa:
-        open-in-view: false
-        hibernate:
-            ddl-auto: none
-            naming:
-                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-    messages:
-        basename: i18n/messages
-    mvc:
-        favicon:
-            enabled: false
-    thymeleaf:
-        mode: XHTML
     profiles:
         active: dev
         include: no-liquibase,swagger
@@ -85,21 +28,16 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://47.92.181.122:18066/cunjk?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT
-        username: vOcRJyFw
-        password: 6XitGRiyPNfM77Buh20e4Wj918q9+UWk
-        
+        url: jdbc:mysql://192.168.1.221:8066/cloud?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: cloud-user
+        password: t!MaL^sIgv7S!PNo
+
         hikari:
             data-source-properties:
                 cachePrepStmts: true
                 prepStmtCacheSize: 250
                 prepStmtCacheSqlLimit: 2048
                 useServerPrepStmts: true
-                validationQuery: SELECT 1
-                testWhileIdle: true
-                timeBetweenEvictionRunsMillis: 300000
-                numTestsPerEvictionRun: 50
-                minEvictableIdleTimeMillis: 3600000
     jpa:
         database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
         database: MYSQL
@@ -125,37 +63,6 @@ spring:
             discovery:
                 enabled: true
 
-security:
-    basic:
-        enabled: false
-    oauth2:
-        resource:
-            filter-order: 3
-
-
-info:
-    project:
-        version: #project.version#
-
-# ===================================================================
-# JHipster specific properties
-#
-# Full reference is available at: http://www.jhipster.tech/common-application-properties/
-# ===================================================================
-
-
-logging:
-    level:
-        ROOT: INFO
-        cn.ctodb.uaa: INFO
-        io.github.jhipster: INFO
-    logback:
-        logdir: /opt/log/dev
-        appname: my-client
-
-
-
-
 liquibase:
     contexts: dev
 
@@ -178,9 +85,6 @@ liquibase:
 # ===================================================================
 server:
     port: 9999
-    session:
-        cookie:
-            http-only: true
 
 # ===================================================================
 # JHipster specific properties
@@ -208,7 +112,7 @@ jhipster:
             client-id: internal
             client-secret: internal
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: my-client@localhost
+        from: uaa@localhost
         base-url: http://127.0.0.1:9999
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
@@ -216,7 +120,7 @@ jhipster:
             enabled: false
             host: localhost
             port: 2003
-            prefix: my-client
+            prefix: uaa
         prometheus: # Use the "prometheus" Maven profile to have the Prometheus dependencies
             enabled: false
             endpoint: /prometheusMetrics
@@ -229,33 +133,7 @@ jhipster:
             host: localhost
             port: 5000
             queue-size: 512
-    async:
-        core-pool-size: 2
-        max-pool-size: 50
-        queue-capacity: 10000
-    # By default CORS is disabled. Uncomment to enable.
-    #cors:
-        #allowed-origins: "*"
-        #allowed-methods: "*"
-        #allowed-headers: "*"
-        #exposed-headers: "Authorization,Link,X-Total-Count"
-        #allow-credentials: true
-        #max-age: 1800
-    mail:
-        from: uaa@localhost
-    swagger:
-        default-include-pattern: /api/.*
-        title: uaa API
-        description: uaa API documentation
-        version: 0.0.1
-        terms-of-service-url:
-        contact-name:
-        contact-url:
-        contact-email:
-        license:
-        license-url:
-    ribbon:
-        display-on-active-profiles: dev
+
 uaa:
     key-store:
         name: keystore.jks

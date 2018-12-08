@@ -27,8 +27,8 @@ eureka:
         service-url:
             defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
     instance:
-        appname: uaa
-        instanceId: uaa:${spring.application.instance-id:${random.value}}
+        appname: my-client
+        instanceId: my-client:${spring.application.instance-id:${random.value}}
         lease-renewal-interval-in-seconds: 5
         lease-expiration-duration-in-seconds: 10
         status-page-url-path: ${management.context-path}/info
@@ -56,7 +56,7 @@ management:
 
 spring:
     application:
-        name: uaa
+        name: my-client
     jackson:
         serialization.write_dates_as_timestamps: false
     jpa:
@@ -151,7 +151,7 @@ logging:
         io.github.jhipster: INFO
     logback:
         logdir: /opt/log/dev
-        appname: uaa
+        appname: my-client
 
 
 
@@ -208,7 +208,7 @@ jhipster:
             client-id: internal
             client-secret: internal
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: uaa@localhost
+        from: my-client@localhost
         base-url: http://127.0.0.1:9999
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
@@ -216,7 +216,7 @@ jhipster:
             enabled: false
             host: localhost
             port: 2003
-            prefix: uaa
+            prefix: my-client
         prometheus: # Use the "prometheus" Maven profile to have the Prometheus dependencies
             enabled: false
             endpoint: /prometheusMetrics

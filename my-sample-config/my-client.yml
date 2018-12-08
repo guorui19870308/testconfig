@@ -1,13 +1,13 @@
-my-config:
-  appName: my-app
+#my-config:
+  #appName: my-app
 logging:
     level:
         ROOT: INFO
-        cn.ctodb.uaa: INFO
+        cn.ctodb.my-client: INFO
         io.github.jhipster: INFO
     logback:
         logdir: /opt/log/dev
-        appname: uaa
+        appname: my-client
 eureka:
     instance:
         prefer-ip-address: true
@@ -18,7 +18,7 @@ eureka:
 spring:
     profiles:
         active: dev
-        include: no-liquibase,swagger
+        #include: no-liquibase,swagger
     devtools:
         restart:
             enabled: true
@@ -112,7 +112,7 @@ jhipster:
             client-id: internal
             client-secret: internal
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: uaa@localhost
+        from: my-client@localhost
         base-url: http://127.0.0.1:9999
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
@@ -120,7 +120,7 @@ jhipster:
             enabled: false
             host: localhost
             port: 2003
-            prefix: uaa
+            prefix: my-client
         prometheus: # Use the "prometheus" Maven profile to have the Prometheus dependencies
             enabled: false
             endpoint: /prometheusMetrics

@@ -155,7 +155,9 @@ uaa:
 # More documentation is available at:
 # http://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
+info:
+    project:
+        version: 0.0.1-SNAPSHOT
 application:
 
 
